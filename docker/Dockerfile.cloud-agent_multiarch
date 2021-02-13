@@ -1,3 +1,4 @@
+# stage 1 building the binary
 FROM ubuntu:16.04 as builder
 ARG SCOPE_SKIP_UI_ASSETS
 WORKDIR /home/weave
@@ -25,6 +26,7 @@ ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 RUN go get -u github.com/mjibson/esc
 RUN make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
+# stage 2
 FROM alpine:3.11.3
 WORKDIR /home/weave
 RUN apk add --no-cache bash conntrack-tools iproute2 util-linux curl
